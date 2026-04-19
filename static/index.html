@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/variables.js" defer></script>
+    <script src="js/hashparse.js" defer></script>
+    <script src="js/test.js" defer></script>
+    <script src="js/upload.js" defer></script>
+    <script src="js/secman.js" defer></script>
+    <script src="js/submit.js" defer></script>
+
+    <title>Музквиз</title>
+</head>
+
+<body>
+    <div class="upload container">
+        <div class="upload__top">
+            <h1>Музквиз.</h1>
+            <input type="file" id="upload" accept="audio/*">
+            <label for="upload" class="upload__button">
+                <h3>Загрузить файл</h3>
+                <p>mp3, wav и т.д.</p>
+            </label>
+        </div>
+        <div class="upload__settings hidden">
+            <h2>Разбейте на секции</h2>
+
+            <div class="upload__add-wrapper">
+                <button class="upload__add">
+                    <h2>+</h2>
+                </button>
+                <p class="upload__link">ссылка для этих настроек:<br><a class="upload__actual-link" href="#"></a></p>
+            </div>
+
+            <ul class="upload__sections sections">
+            </ul>
+        </div>
+        <div class="upload__submit-wrapper hidden">
+            <button class="upload__submit">
+                <h3>Начать тест</h3>
+            </button>
+        </div>
+    </div>
+
+    <div class="test container hidden">
+        <div class="test__top">
+            <h1>Что играет сейчас?</h1>
+            <p class="test__level"></p>
+            <div class="test__buttons">
+                <button class="test__button test__button_play">
+                    <img class="play" src="./icons/Play.svg" alt="PLAY">
+                    <img class="pause hidden" src="./icons/Pause.svg" alt="PAUSE">
+                </button>
+                <button class="test__button test__button_repeat"><img src="./icons/Repeat.svg" alt="REPEAT"></button>
+                <input class="test__volume" type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+        </div>
+        <div class="test__options">
+        </div>
+    </div>
+
+    <div class="error error__hidden">
+        <p class="error__message">Поля не должны быть пустыми!</p>
+    </div>
+
+    <div class="overlay hidden"></div>
+
+    <div class="result-message hidden">
+        <div class="result-message__wrapper">
+            <h3>Вы прошли!</h3>
+            <p></p>
+            <button class="upload__button">Ок</button>
+        </div>
+    </div>
+</body>
+
+</html>
