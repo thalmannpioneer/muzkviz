@@ -142,16 +142,6 @@ const startTest = async (order, curr) => {
     const aurl = URL.createObjectURL(file);
     audio = new Audio(aurl);
 
-    if (!uploadContainer.classList.contains("hidden")) {
-        const anim = uploadContainer.animate([
-            { "opacity": "1" },
-            { "opacity": "0" }
-        ], {
-            duration: 200
-        });
-        await anim.finished;
-        uploadContainer.classList.add("hidden");
-    }
     test.classList.remove("hidden");
     const anim2 = test.animate([
         { "opacity": "0" },

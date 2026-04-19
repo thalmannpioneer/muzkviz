@@ -1,6 +1,14 @@
 'use strict';
 
 upload.addEventListener('change', async e => {
+    overlay.classList.remove("hidden");
+    overlay.animate([
+        { "opacity": "0" },
+        { "opacity": "1" }
+    ], {
+        duration: 200
+    });
+
     list.replaceChildren();
 
     const file = upload.files[0];
@@ -16,6 +24,14 @@ upload.addEventListener('change', async e => {
     if (!resp.ok) return;
 
     data = await resp.json();
+
+    overlay.animate([
+        { "opacity": "1" },
+        { "opacity": "0" }
+    ], {
+        duration: 200
+    });
+    setTimeout(() => overlay.classList.add("hidden"), 200);
 
     constructSections();
 });

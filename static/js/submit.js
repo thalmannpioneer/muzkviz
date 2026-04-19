@@ -8,9 +8,25 @@ const showError = (errorText, hlElem = null) => {
         error.classList.add("error__hidden");
         if (hlElem) hlElem.classList.remove("highlight");
     }, 1000);
+    uploadContainer.classList.remove("hidden");
+    uploadContainer.animate([
+        { "opacity": "0" },
+        { "opacity": "1" }
+    ], {
+        duration: 200
+    });
 }
 
 submitButton.addEventListener('click', async e => {
+    const anim = uploadContainer.animate([
+        { "opacity": "1" },
+        { "opacity": "0" }
+    ], {
+        duration: 200
+    });
+    await anim.finished;
+    uploadContainer.classList.add("hidden");
+
     let sections = [];
 
     for (const elem of list.children) {
@@ -31,7 +47,7 @@ submitButton.addEventListener('click', async e => {
             return;
         }
         if (firstPoint > data.duration || secondPoint > data.duration) {
-            showError(`Нельзя выходить за пределы аудио! Длина: ${Math.trunc(data.duration / 60)}:${data.duration % 60}`);
+            showError(`Нельзя выходить за пределы аудио! Длина: ${String(Math.trunc(data.duration / 60)).padStart(1, '0')}:${String(data.duration % 60).padStart(2, '0')}`);
             return;
         }
 

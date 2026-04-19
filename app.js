@@ -14,7 +14,6 @@ const PORT = 80;
 const storage = {
     async _handleFile(req, file, cb) {
         const hash = crypto.createHash('sha256');
-        fs.mkdirSync("./uploads");
         const stream = fs.createWriteStream('./uploads/temp');
         let finalPath;
 
@@ -174,7 +173,7 @@ server.post("/get-sections", (req, resp) => {
     const body = {
         id: obj.hash,
         duration: parsed.duration,
-        parts: parsed.sections
+        sections: parsed.sections
     }
     resp.json(body);
     resp.send();
