@@ -14,7 +14,7 @@ const PORT = 80;
 const storage = {
     async _handleFile(req, file, cb) {
         const hash = crypto.createHash('sha256');
-        const stream = fs.createWriteStream('./uploads/temp');
+        const stream = fs.createWriteStream('uploads/temp');
         let finalPath;
 
         await new Promise((res, rej) => {
@@ -28,12 +28,12 @@ const storage = {
                     const final = hash.digest('hex');
                     finalPath = path.join('uploads', final);
                     if (fs.existsSync(finalPath)) {
-                        fs.rmSync('./uploads/temp');
+                        fs.rmSync('uploads/temp');
                         res();
                         return;
                     }
                     fs.mkdirSync(finalPath, { recursive: true });
-                    fs.renameSync("./uploads/temp", path.join(finalPath, "main"));
+                    fs.renameSync("uploads/temp", path.join(finalPath, "main"));
                     res();
                 });
         });
@@ -43,11 +43,11 @@ const storage = {
 }
 const upload = multer({ storage: storage });
 
-server.use(express.static('./static/'));
+server.use(express.static('static/'));
 server.use(express.json());
 
 server.get('/', (req, resp) => {
-    fs.readFile('./static/index.html', 'utf-8', (err, data) => {
+    fs.readFile('static/index.html', 'utf-8', (err, data) => {
         if (err) resp.sendStatus(500);
         else resp.send(data);
     });
@@ -150,7 +150,7 @@ server.post("/get-part", (req, resp) => {
 });
 
 server.get(/\/[A-Fa-f0-9]{64}$/, (req, resp) => {
-    fs.readFile('./static/index.html', 'utf-8', (err, data) => {
+    fs.readFile('static/index.html', 'utf-8', (err, data) => {
         if (err) resp.sendStatus(500);
         else resp.send(data);
     });
