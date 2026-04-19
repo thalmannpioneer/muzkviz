@@ -23,6 +23,8 @@ const uploadContainer = document.querySelector(".upload");
 const overlay = document.querySelector(".overlay");
 const result = document.querySelector(".result-message");
 
+const okbtn = document.querySelector(".result-message button");
+
 let mistakes = 0;
 
 //UPLOAD
@@ -44,8 +46,8 @@ const error = document.querySelector(".error");
 
 //FUNCTIONS
 const constructSections = () => {
-    if (data.parts) {
-        data.parts.forEach(p => {
+    if (data.sections) {
+        data.sections.forEach(p => {
             const li = document.createElement("template");
 
             li.innerHTML = `

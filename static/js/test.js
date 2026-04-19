@@ -1,5 +1,23 @@
 'use strict';
 
+okbtn.addEventListener('click', async e => {
+    const anim = overlay.animate([
+        { "opacity": "1" },
+        { "opacity": "0" }
+    ], {
+        duration: 200
+    });
+    result.animate([
+        { "opacity": "1" },
+        { "opacity": "0" }
+    ], {
+        duration: 200
+    });
+    await anim.finished;
+    overlay.classList.add("hidden");
+    result.classList.add("hidden");
+});
+
 play.addEventListener('click', e => {
     if (audio.paused) {
         pauseIcon.classList.add("hidden");
@@ -143,5 +161,9 @@ const startTest = async (order, curr) => {
     });
     await anim2.finished;
     audio.volume = 0.5;
+    if (audio.paused) {
+        pauseIcon.classList.add("hidden");
+        playIcon.classList.remove("hidden");
+    }
     audio.play();
 };
