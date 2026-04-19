@@ -14,7 +14,6 @@ const PORT = 80;
 const storage = {
     async _handleFile(req, file, cb) {
         const hash = crypto.createHash('sha256');
-        fs.mkdirSync("./uploads", { recursive: true });
         const stream = fs.createWriteStream('./uploads/temp');
         let finalPath;
 
@@ -58,6 +57,7 @@ server.post('/upload', upload.single('file'), async (req, resp) => {
     const hash = req.file.path.slice(8);
     let duration = null;
     let parts = null;
+    let obj = null;
 
     await new Promise((resolve, reject) => {
         ffmpeg.ffprobe(path.join(req.file.path, "main"), (err, data) => {
@@ -68,7 +68,7 @@ server.post('/upload', upload.single('file'), async (req, resp) => {
     });
 
     if (!fs.existsSync(path.join(req.file.path, "parts"))) {
-        const obj = {
+        obj = {
             id: hash,
             duration: duration,
             sections: null
@@ -76,13 +76,16 @@ server.post('/upload', upload.single('file'), async (req, resp) => {
         fs.writeFileSync(path.join(req.file.path, "config.json"), JSON.stringify(obj), 'utf8');
         fs.mkdirSync(path.join(req.file.path, "parts"));
     }
-    else parts = JSON.parse(fs.readFileSync(path.join(req.file.path, "config.json"), 'utf8'));
+    else {
+        parts = JSON.parse(fs.readFileSync(path.join(req.file.path, "config.json"), 'utf8'));
+        obj = {
+            id: hash,
+            duration: duration,
+            sections: parts.sections
+        };
+    }
 
-    resp.json({
-        id: hash,
-        duration: duration,
-        parts: parts.sections
-    });
+    resp.json(obj);
     resp.send();
 });
 
