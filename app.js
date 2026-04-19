@@ -14,7 +14,7 @@ const PORT = 80;
 const storage = {
     async _handleFile(req, file, cb) {
         const hash = crypto.createHash('sha256');
-        fs.closeSync(fs.openSync('example.txt', 'w'));
+        fs.mkdirSync("./uploads", { recursive: true });
         const stream = fs.createWriteStream('./uploads/temp');
         let finalPath;
 
